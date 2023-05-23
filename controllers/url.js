@@ -16,4 +16,12 @@ async function generateShortUrl(req,res){
     res.status('201').json(id);
 
 }
-module.exports = generateShortUrl;
+
+async function redirectUrl(req,res){
+    const shortid= req.params.id;
+    console.log(shortid);
+    const url = await URL.findOne({shortUrl: shortid});
+    console.log(url);
+    res.redirect(url.originalUrl);
+}
+module.exports = {generateShortUrl,redirectUrl};
